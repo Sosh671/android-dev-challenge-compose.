@@ -20,9 +20,16 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.data.PuppyRepository
+import com.example.androiddevchallenge.data.PuppyRepositoryStub
+import com.example.androiddevchallenge.ui.screens.PuppyList
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -36,11 +43,24 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+private val puppyRepository: PuppyRepository = PuppyRepositoryStub()
+
 // Start building your app here!
 @Composable
 fun MyApp() {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+        val navController = rememberNavController()
+        NavHost(navController = navController, startDestination = "puppyListScreen") {
+            val argId = navArgument("id") { type = NavType.LongType }
+            composable("puppyListScreen") {
+                PuppyList(navController, puppyRepository.getPuppyList())
+            }
+            composable("puppyInfoScreen/{id}", listOf(argId)) {
+                val id = it.arguments?.getLong("id") ?: 0
+                val dog = puppyRepository.getPuppy(id)
+//                Detail(navController = navController, data = dog)
+            }
+        }
     }
 }
 
@@ -52,10 +72,10 @@ fun LightPreview() {
     }
 }
 
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+/*@Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
         MyApp()
     }
-}
+}*/
