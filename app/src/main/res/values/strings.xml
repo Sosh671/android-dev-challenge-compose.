@@ -10,4 +10,8 @@
       the License.
       -->
     <string name="app_name">AndroidDevChallenge</string>
+    <string name="bullet">&#8226;</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="color">Color</string>
 </resources>

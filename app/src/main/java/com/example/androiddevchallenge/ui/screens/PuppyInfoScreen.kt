@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -29,7 +30,10 @@ const val desc =
 @Preview
 @Composable
 private fun preview() {
-    PuppyInfo(rememberNavController(), PuppyInfo(1, R.drawable.puppy2, "Apollo", desc))
+    PuppyInfo(
+        rememberNavController(),
+        PuppyInfo(1, R.drawable.puppy1, "Apollo", desc, 5f, 30f, "Dark"),
+    )
 }
 
 @Composable
@@ -67,12 +71,52 @@ fun PuppyInfo(navController: NavController, puppy: PuppyInfo) {
                 )
                 Text(
                     text = puppy.name,
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.h5,
                     color = MaterialTheme.colors.onSurface,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = MaterialTheme.colors.surface)
-                        .padding(horizontal = 8.dp, vertical = 16.dp)
+                        .padding(horizontal = 8.dp)
+                        .padding(top = 16.dp)
+                )
+                Text(
+                    text = buildBulletString(
+                        resId = R.string.weight,
+                        content = puppy.weight.toString()
+                    ),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colors.surface)
+                        .padding(horizontal = 8.dp)
+                        .padding(top = 16.dp)
+                )
+                Text(
+                    text = buildBulletString(
+                        resId = R.string.height,
+                        content = puppy.height.toString()
+                    ),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colors.surface)
+                        .padding(horizontal = 8.dp)
+                        .padding(top = 8.dp)
+                )
+                Text(
+                    text = buildBulletString(
+                        resId = R.string.color,
+                        content = puppy.color
+                    ),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onSurface,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colors.surface)
+                        .padding(horizontal = 8.dp)
+                        .padding(top = 8.dp)
                 )
                 Text(
                     text = puppy.description,
@@ -82,9 +126,15 @@ fun PuppyInfo(navController: NavController, puppy: PuppyInfo) {
                         .fillMaxWidth()
                         .background(color = MaterialTheme.colors.surface)
                         .padding(horizontal = 8.dp)
+                        .padding(top = 16.dp)
                         .padding(bottom = 8.dp)
                 )
             }
         }
     )
+}
+
+@Composable
+private fun buildBulletString(resId: Int, content: String): String {
+    return "${stringResource(R.string.bullet)} ${stringResource(resId)}: $content"
 }

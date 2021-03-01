@@ -7,15 +7,15 @@ class PuppyRepositoryStub : PuppyRepository {
 
     private val list by lazy {
         listOf(
-            PuppyInfo(1, R.drawable.puppy1, "Apollo", desc),
-            PuppyInfo(2, R.drawable.puppy2, "Duke", desc),
-            PuppyInfo(3, R.drawable.puppy3, "Loki", desc),
-            PuppyInfo(4, R.drawable.puppy4, "Sam", desc),
+            PuppyInfo(1, R.drawable.puppy1, "Apollo", desc, 5f, 30f, "Dark"),
+            PuppyInfo(2, R.drawable.puppy2, "Duke", desc,5f, 30f, "Light"),
+            PuppyInfo(3, R.drawable.puppy3, "Loki", desc,5f, 30f, "Light"),
+            PuppyInfo(4, R.drawable.puppy4, "Sam", desc,5f, 30f, "Light"),
         )
     }
 
     private val errorItem by lazy {
-        PuppyInfo(-1, R.drawable.error, "Error", "Error")
+        PuppyInfo(-1, R.drawable.error, "Error", "Error", 0f, 0f, "Error")
     }
 
     override fun getPuppyList(): List<PuppyInfo> {
