@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardBackspace
 import androidx.compose.runtime.Composable
@@ -45,7 +42,7 @@ fun PuppyInfo(navController: NavController, puppy: PuppyInfo) {
                     Image(
                         imageVector = Icons.Filled.KeyboardBackspace,
                         contentDescription = null,
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                        colorFilter = ColorFilter.tint(contentColorFor(backgroundColor = MaterialTheme.colors.primarySurface)),
                         modifier = Modifier
                             .padding(end = 16.dp)
                             .clickable {
