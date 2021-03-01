@@ -9,14 +9,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
@@ -32,78 +29,55 @@ fun PuppyList(navController: NavController, puppyInfoList: List<PuppyInfo>) {
                     Text(text = stringResource(R.string.app_name))
                 }
             )
-        }
-    ) {
-        LazyColumn {
-            items(puppyInfoList.size) { index ->
-                val puppy = puppyInfoList[index]
-                PuppyListItem(puppyInfo = puppy) {
-                    navController.navigate("puppyInfoScreen/${puppy.id}")
+        },
+        content = {
+            Column {
+                LazyColumn(
+                    contentPadding = PaddingValues(
+                        start = 8.dp,
+                        end = 8.dp,
+                        bottom = 16.dp
+                    )
+                ) {
+                    items(puppyInfoList.size) { index ->
+                        val puppy = puppyInfoList[index]
+                        PuppyListItem(puppyInfo = puppy) {
+                            navController.navigate("puppyInfoScreen/${puppy.id}")
+                        }
+                    }
+
                 }
             }
         }
-    }
+    )
 }
 
 @Composable
 private fun PuppyListItem(puppyInfo: PuppyInfo, onItemClicked: () -> Unit) {
-    Box(
+    Card(
         modifier = Modifier
-            .padding(top = 10.dp)
+            .padding(top = 16.dp)
             .clickable {
                 onItemClicked.invoke()
             }
     ) {
         Image(
-            painter = painterResource(id = puppyInfo.imgResId),
+            painter = painterResource(puppyInfo.imgResId),
             contentDescription = null,
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
-                .clip(shape = RoundedCornerShape(8.dp))
                 .padding(8.dp),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         Text(
             text = puppyInfo.name,
             style = typography.h6,
-            color = colorResource(id = android.R.color.black),
+            color = MaterialTheme.colors.onSurface,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = colorResource(id = android.R.color.white))
+                .background(color = MaterialTheme.colors.surface)
                 .padding(8.dp)
         )
-    }
-}
-
-@Preview
-@Composable
-private fun _preview() {
-    Surface(color = MaterialTheme.colors.background) {
-        Box(
-            modifier = Modifier
-//            .padding(bottom = 10.dp)
-                .clickable {
-//                onItemClicked.invoke()
-                }
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.puppy1),
-                "puppy image",
-                modifier = Modifier
-                    .requiredHeight(200.dp)
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                contentScale = ContentScale.FillWidth
-            )
-            Text(
-                text = "Apollo",
-                color = colorResource(id = android.R.color.black),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = colorResource(id = android.R.color.white))
-                    .padding(8.dp)
-            )
-        }
     }
 }
