@@ -10,6 +10,7 @@ class PuppyRepositoryStub : PuppyRepository {
             PuppyInfo(1, R.drawable.puppy1, "Apollo", desc),
             PuppyInfo(2, R.drawable.puppy2, "Duke", desc),
             PuppyInfo(3, R.drawable.puppy3, "Loki", desc),
+            PuppyInfo(4, R.drawable.puppy4, "Sam", desc),
         )
     }
 

@@ -29,6 +29,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.data.PuppyRepository
 import com.example.androiddevchallenge.data.PuppyRepositoryStub
+import com.example.androiddevchallenge.ui.screens.PuppyInfo
 import com.example.androiddevchallenge.ui.screens.PuppyList
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
@@ -51,14 +52,15 @@ fun MyApp() {
     Surface(color = MaterialTheme.colors.background) {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "puppyListScreen") {
-            val argId = navArgument("id") { type = NavType.LongType }
             composable("puppyListScreen") {
                 PuppyList(navController, puppyRepository.getPuppyList())
             }
+
+            val argId = navArgument("id") { type = NavType.LongType }
             composable("puppyInfoScreen/{id}", listOf(argId)) {
                 val id = it.arguments?.getLong("id") ?: 0
                 val dog = puppyRepository.getPuppy(id)
-//                Detail(navController = navController, data = dog)
+                PuppyInfo(navController, dog)
             }
         }
     }
